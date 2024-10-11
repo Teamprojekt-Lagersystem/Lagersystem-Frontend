@@ -1,13 +1,45 @@
-name: Deploy to vercel on merge
-on: [push, pull_request]
+name: Deploy to Vercel on Merge or Branch Push
+
+on:
+  push:
+    branches:
+      - main
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: amondnet/vercel-action@v25
+      
+      - name: Deploy to Vercel (Main Branch)
+        if: github.ref == 'refs/heads/main'
+        uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.ORG_ID }}
           vercel-project-id: ${{ secrets.PROJECT_ID }}
+          working-directory: ./
+
+      - name: Deploy to Vercel (Other Branches)
+        if: startsWith(github.ref, 'refs/heads/') && github.ref != 'refs/heads/main'
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
+          alias-domains: '${{ github.ref_name }}.lagersystem.glaciyan.cc'
+          working-directory: ./
+
+      - name: Deploy to Vercel (Pull Requests)
+        if: github.event_name == 'pull_request'
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
+          alias-domains: 'pr-${{ github.event.pull_request.number }}.lagersystem.glaciyan.cc'
           working-directory: ./
