@@ -46,7 +46,7 @@
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "@typescript-eslint/parser": "^8.11.0",
     "@unocss/eslint-config": "^0.63.6",
-    "@unocss/transformer-directives": "^0.63.4",
+    "@unocss/transformer-directives": "^0.63.6",
     "@unocss/transformer-variant-group": "^0.63.6",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vue/eslint-config-typescript": "^14.1.1",
