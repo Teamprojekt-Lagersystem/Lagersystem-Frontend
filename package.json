@@ -21,7 +21,7 @@
     "@floating-ui/dom": "^1.6.11",
     "@headlessui/vue": "^1.7.23",
     "@unocss/reset": "^0.63.6",
-    "@vueuse/core": "^11.1.0",
+    "@vueuse/core": "^12.0.0",
     "@vueuse/integrations": "^11.1.0",
     "dexie": "^4.0.9",
     "focus-trap": "^7.6.0",
